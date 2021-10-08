@@ -91,6 +91,7 @@ pagination_dir: page
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
 include:
+  .nojekyll
 exclude:
 ignore:
 
@@ -102,7 +103,9 @@ theme: matery
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 ## https://github.com/Jack-Ni/Jack-Ni.GitHub.io.git
+## https://Jack-Ni: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@github.com/Jack-Ni/Jack-Ni.GitHub.io.git
 deploy:
   type: git
-  repository: https://Jack-Ni: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@github.com/Jack-Ni/Jack-Ni.GitHub.io.git
+  repository: https://github.com/Jack-Ni/Jack-Ni.GitHub.io.git
   branch: main
+  ignore_hidden: filename_case

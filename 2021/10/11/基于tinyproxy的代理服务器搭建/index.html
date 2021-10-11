@@ -482,7 +482,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h1><p>研究生实验室用的交换机，用网线直连测试能有100M左右的速度，但当打开视频网站（如bilibili）、QQ音乐下载、steam下载时，会出现几乎是0的下载速度，故怀疑是学校方面限制了上网的环境。具体可能涉及到上网策略或是包的过滤什么的不是很懂，不过有朋友建议自己架设服务器作为代理，故有了这次尝试，也有一定的收获。</p>
+                <p>腾讯云上基于tinyproxy搭建代理服务器<span id="more"></span></p>
+<h1 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h1><p>研究生实验室用的交换机，用网线直连测试能有100M左右的速度，但当打开视频网站（如bilibili）、QQ音乐下载、steam下载时，会出现几乎是0的下载速度，故怀疑是学校方面限制了上网的环境。具体可能涉及到上网策略或是包的过滤什么的不是很懂，不过有朋友建议自己架设服务器作为代理，故有了这次尝试，也有一定的收获。</p>
 <h1 id="2-服务器选择"><a href="#2-服务器选择" class="headerlink" title="2 服务器选择"></a>2 服务器选择</h1><p>根据现实情况选择，买服务器在校外架设是不现实的，所以先在腾讯云上用学生优惠价买了一个月的轻量级云服务器试水，单核CPU 2G内存 60G硬盘 6M带宽（穷，只能将就下） centOS，如下图：<br><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/centos.png" title="腾讯云centOS服务器"></p>
 <h1 id="3-服务器配置"><a href="#3-服务器配置" class="headerlink" title="3 服务器配置"></a>3 服务器配置</h1><p>和一般的Linux差不多，不过centOS是属于RedHat阵营的，所以apt得用yum代替（小白一枚，一开始还以为是不是系统不完整）。</p>
 <p>不过在配置之前，建议先进入云服务器的控制台，我的是腾讯云所以进入的是腾讯云服务器的控制台。重置下密码好进行第三方软件的远程登录。</p>
@@ -820,7 +821,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            腾讯云上基于tinyproxy搭建代理服务器
                         
                     </div>
                     <div class="publish-info">

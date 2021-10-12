@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Magic</title>
+  
+  <subtitle>一起感受魔法世界吧！(●&#39;◡&#39;●)</subtitle>
+  <link href="http://jack-ni.com/atom.xml" rel="self"/>
+  
+  <link href="http://jack-ni.com/"/>
+  <updated>2021-10-12T13:24:53.971Z</updated>
+  <id>http://jack-ni.com/</id>
+  
+  <author>
+    <name>Jack Ni</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>树莓派3B系统重装并安装Tensorflow + Keras</title>
+    <link href="http://jack-ni.com/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/"/>
+    <id>http://jack-ni.com/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/</id>
+    <published>2021-10-12T11:14:21.000Z</published>
+    <updated>2021-10-12T13:24:53.971Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本科毕设：基于树莓派和深度学习的自动驾驶小车&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="操作" scheme="http://jack-ni.com/categories/%E6%93%8D%E4%BD%9C/"/>
+    
+    
+    <category term="树莓派" scheme="http://jack-ni.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    <category term="Tensorflow" scheme="http://jack-ni.com/tags/Tensorflow/"/>
+    
+    <category term="Keras" scheme="http://jack-ni.com/tags/Keras/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自动驾驶小车</title>
+    <link href="http://jack-ni.com/2021/10/12/zi-dong-jia-shi-xiao-che/"/>
+    <id>http://jack-ni.com/2021/10/12/zi-dong-jia-shi-xiao-che/</id>
+    <published>2021-10-12T08:22:32.000Z</published>
+    <updated>2021-10-12T12:45:27.611Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本科毕设：基于树莓派和深度学习的自动驾驶小车&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="项目" scheme="http://jack-ni.com/categories/%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+    <category term="树莓派" scheme="http://jack-ni.com/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/"/>
+    
+    <category term="深度学习" scheme="http://jack-ni.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="自动驾驶" scheme="http://jack-ni.com/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>首页按钮功能探索记录</title>
+    <link href="http://jack-ni.com/2021/10/12/shou-ye-an-niu-gong-neng-tan-suo-ji-lu/"/>
+    <id>http://jack-ni.com/2021/10/12/shou-ye-an-niu-gong-neng-tan-suo-ji-lu/</id>
+    <published>2021-10-12T02:35:49.000Z</published>
+    <updated>2021-10-12T08:16:03.895Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;对首页按钮编辑的探索&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="探索" scheme="http://jack-ni.com/categories/%E6%8E%A2%E7%B4%A2/"/>
+    
+    
+    <category term="按钮" scheme="http://jack-ni.com/tags/%E6%8C%89%E9%92%AE/"/>
+    
+    <category term="探索" scheme="http://jack-ni.com/tags/%E6%8E%A2%E7%B4%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于tinyproxy的代理服务器搭建</title>
+    <link href="http://jack-ni.com/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/"/>
+    <id>http://jack-ni.com/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/</id>
+    <published>2021-10-11T08:08:49.000Z</published>
+    <updated>2021-10-11T09:20:21.886Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;腾讯云上基于tinyproxy搭建代理服务器&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="操作" scheme="http://jack-ni.com/categories/%E6%93%8D%E4%BD%9C/"/>
+    
+    
+    <category term="tinyproxy" scheme="http://jack-ni.com/tags/tinyproxy/"/>
+    
+    <category term="服务器" scheme="http://jack-ni.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown Magic</title>
+    <link href="http://jack-ni.com/2021/10/11/magic-world-magic-code/"/>
+    <id>http://jack-ni.com/2021/10/11/magic-world-magic-code/</id>
+    <published>2021-10-11T00:59:25.000Z</published>
+    <updated>2021-10-11T09:06:04.026Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Markdown语法&lt;/p&gt;
+&lt;h1 id=&quot;Markdown-魔法&quot;&gt;&lt;a href=&quot;#Markdown-魔法&quot; class=&quot;headerlink&quot; title=&quot;Markdown 魔法&quot;&gt;&lt;/a&gt;Markdown 魔法&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="语法" scheme="http://jack-ni.com/categories/%E8%AF%AD%E6%B3%95/"/>
+    
+    
+    <category term="Markdown" scheme="http://jack-ni.com/tags/Markdown/"/>
+    
+    <category term="魔法" scheme="http://jack-ni.com/tags/%E9%AD%94%E6%B3%95/"/>
+    
+  </entry>
+  
+</feed>

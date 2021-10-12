@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 魔法,程序,分享">
+    <meta name="keywords" content="首页按钮功能探索记录, 魔法,程序,分享">
     <meta name="description" content="练习魔法，改变世界(●ˇ∀ˇ●)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Magic</title><meta name="robots" content="noindex">
+    <title>首页按钮功能探索记录 | Magic</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">首页按钮功能探索记录</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%8C%89%E9%92%AE/">
+                                <span class="chip bg-color">按钮</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%8E%A2%E7%B4%A2/">
+                                <span class="chip bg-color">探索</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%8E%A2%E7%B4%A2/" class="post-category">
+                                探索
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    1985-10-26
+                    2021-10-12
                 </div>
                 
 
@@ -466,20 +483,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+                <p>对首页按钮编辑的探索<span id="more"></span></p>
+<h2 id="1-前期准备"><a href="#1-前期准备" class="headerlink" title="1 前期准备"></a>1 前期准备</h2><p>在不熟悉静态网页生成原理的情况下，要对config.md内无法修改的首页按钮进行编辑，就需要以线索形式进行探索。<br>同时，因为其中将会涉及到很多的线索和文件，故在此使用markdown进行记录，同时熟悉md文件的使用。<br>其中，基于Python自编了查询代码，进行对指定路径内的所有文件以文本形式对比检索字符串输出符合的文件路径的功能实现py文件，代码实现如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"># 查找特定路径与文件类型的所有文件路径</span><br><span class="line">def get_files_path(folder_path, file_type=""):</span><br><span class="line">    """</span><br><span class="line">    得到指定目录下的指定类型的文件的路径列表</span><br><span class="line">    :param folder_path: 文件目录路径</span><br><span class="line">    :param file_type: 文件后缀(Eg:.xlsx)，若为""则不限定文件类型</span><br><span class="line">    :return: 指定路径、指定文件类型(后缀)的文件路径列表</span><br><span class="line">    """</span><br><span class="line">    from os import walk</span><br><span class="line">    from os.path import join, splitext</span><br><span class="line">    result = []</span><br><span class="line">    for main_dir, sub_dir, file_name_list in walk(folder_path):</span><br><span class="line">        for file_name in file_name_list:</span><br><span class="line">            if file_type == "":</span><br><span class="line">                file_path = join(main_dir, file_name)</span><br><span class="line">                result.append(file_path)</span><br><span class="line">            else:</span><br><span class="line">                if splitext(file_name)[1] == file_type:  # 筛选指定类型文件</span><br><span class="line">                    file_path = join(main_dir, file_name)</span><br><span class="line">                    result.append(file_path)</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line"># 将可能的多维列表按照层次打印</span><br><span class="line">def print_list(list_input, layer_num=0):</span><br><span class="line">    """</span><br><span class="line">    对输入的可能的多维列表进行分层次打印，设计为递归实现</span><br><span class="line">    :param list_input: 当前轮数递归的输入列表</span><br><span class="line">    :param layer_num: 当前论述递归所在的列表对应层数</span><br><span class="line">    :return: 无</span><br><span class="line">    """</span><br><span class="line">    # 首层输出列表标志以提示开头</span><br><span class="line">    if layer_num == 0:</span><br><span class="line">        print("[" + str(layer_num) + "&gt;")</span><br><span class="line">    for list_item in list_input:</span><br><span class="line">        if type(list_item) == list:</span><br><span class="line">            print("\t" * (layer_num + 1) + "[" + str(layer_num + 1) + "&gt;")</span><br><span class="line">            print_list(list_item, layer_num=layer_num+1)</span><br><span class="line">            print("\t" * (layer_num + 1) + "]" + str(layer_num + 1) + "&gt;")</span><br><span class="line">        else:</span><br><span class="line">            print("\t" * (layer_num + 1), end="")</span><br><span class="line">            print("&lt;" + str(layer_num + 1) + "&gt;" + str(list_item))</span><br><span class="line">    # 首层输出列表标志以提示结尾</span><br><span class="line">    if layer_num == 0:</span><br><span class="line">        print("]" + str(layer_num) + "&gt;")</span><br><span class="line"></span><br><span class="line">def match_files(file_path, match_content):</span><br><span class="line">    path_list = get_files_path(folder_path=file_path, file_type="")</span><br><span class="line">    file_txt = ""</span><br><span class="line">    result_path = []</span><br><span class="line">    for path_file in path_list:</span><br><span class="line">        try:</span><br><span class="line">            with open(path_file, 'r', encoding='utf-8') as f:</span><br><span class="line">                file_txt = f.read()</span><br><span class="line">        except Exception as e:</span><br><span class="line">            # print("match_files -&gt; {}的文件在解析过程中出错，错误明细为：{}{}".format(path_file, e.__class__.__name__, e))</span><br><span class="line">            continue</span><br><span class="line">        if match_content in file_txt:</span><br><span class="line">            result_path.append(path_file)</span><br><span class="line">            continue</span><br><span class="line">    print("match_files -&gt; 与比对内容“{}”相匹配的文件路径列表为：".format(match_content))</span><br><span class="line">    print_list(result_path)</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-首页按钮线索检索"><a href="#2-首页按钮线索检索" class="headerlink" title="2 首页按钮线索检索"></a>2 首页按钮线索检索</h2><p>首先，从最直观的“开始阅读”按钮入手，并以人工形式排除诸如在public、.deploy_git目录下的临时文件，筛选出可能性最大的文件。<br>下面，以 “现有线索：符合文件路径：得到线索” 的形式进行说明。</p>
+<ol>
+<li><p>开始阅读：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\languages\zh-CN.yml：startRead</p>
+</li>
+<li><p>startRead：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\index-cover.ejs：得到如下线索，此外，得到<strong>【增加首页按钮的方法】</strong>，即在该文件下再建立对应标签</p>
+</li>
+</ol>
+<ul>
+<li><p>theme.indexbtn.name：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\index-cover.ejs：只有该文件夹中存在，结束线索</p>
+</li>
+<li><p>theme.githubLink.title：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\github-link.ejs、F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\mobile-nav.ejs：无特别收获，结束线索</p>
+</li>
+<li><p>waves-effect waves-light btn：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\source\libs\materialize\materialize.min.css：得到<strong>【首页按钮样式详细修改代码】</strong></p>
+</li>
+<li><p>fab fa-github：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\social-link.ejs、F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\mobile-nav.ejs</p>
+</li>
+<li><p>&lt;%- theme.githubLink.url %&gt;：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\github-link.ejs、F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_partial\mobile-nav.ejs：与theme.githubLink.title线索无二，结束线索</p>
+</li>
+<li><p>另，在README_CN文件中，描述了相关修改项，猜测<strong>【链接的修改位于social-link中】</strong></p>
+</li>
+</ul>
+<ol start="3">
+<li>另，github.com/Jack-Ni/Jack-Ni.GitHub.io：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery_config.yml：得到<strong>【按钮链接和图标编辑处】</strong></li>
+</ol>
+<h2 id="个人简历线索检索"><a href="#个人简历线索检索" class="headerlink" title="个人简历线索检索"></a>个人简历线索检索</h2><p>这是针对个人介绍界面的修改，比如对文章统计图的排序或修改，对项目图标的修改，自我介绍的文字排版等</p>
+<ol>
+<li><p>文章统计图postCharts：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_widget\post-charts.ejs：得到<strong>【文章统计图的设计代码】</strong></p>
+</li>
+<li><p>我的项目myProjects：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout_widget\my-projects.ejs、F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\layout\about.ejs：得到<strong>【自建CSS小图标样式】</strong></p>
+</li>
+<li><p>另，小图标样式：F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery\source\libs\awesome\css\all.css：发现图标样式文件</p>
+</li>
+</ol>
+<h2 id="3-收获"><a href="#3-收获" class="headerlink" title="3 收获"></a>3 收获</h2><p>例如theme.githubLink.title指在”F:\Program Files (x86)\GitHubRepository\Jack-Ni.GitHub.io\themes\matery_config.yml”中的增加的</p>
+<p>图标预览网址：<a target="_blank" rel="noopener" href="https://fontawesome.com/v5.15/icons?d=gallery&amp;p=2">https://fontawesome.com/v5.15/icons?d=gallery&amp;p=2</a></p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<!-- flag of hidden posts -->
                 
             </div>
             <hr/>
@@ -505,7 +549,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jack-ni.com/1985/10/26/hello-world/">http://jack-ni.com/1985/10/26/hello-world/</a>
+                    <a href="http://jack-ni.com/2021/10/12/shou-ye-an-niu-gong-neng-tan-suo-ji-lu/">http://jack-ni.com/2021/10/12/shou-ye-an-niu-gong-neng-tan-suo-ji-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -542,7 +586,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E6%8C%89%E9%92%AE/">
+                                    <span class="chip bg-color">按钮</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%8E%A2%E7%B4%A2/">
+                                    <span class="chip bg-color">探索</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -712,39 +764,57 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/1985/10/26/hello-world/">
+                <a href="/2021/10/12/zi-dong-jia-shi-xiao-che/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="自动驾驶小车">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">自动驾驶小车</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            本科毕设：基于树莓派和深度学习的自动驾驶小车
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>1985-10-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jack Ni
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    项目
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                        <span class="chip bg-color">树莓派</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/">
+                        <span class="chip bg-color">自动驾驶</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -752,37 +822,52 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/1985/10/26/hello-world/">
+                <a href="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="基于tinyproxy的代理服务器搭建">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">基于tinyproxy的代理服务器搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            腾讯云上基于tinyproxy搭建代理服务器
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>1985-10-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-11
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jack Ni
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%93%8D%E4%BD%9C/" class="post-category">
+                                    操作
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/tinyproxy/">
+                        <span class="chip bg-color">tinyproxy</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                        <span class="chip bg-color">服务器</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

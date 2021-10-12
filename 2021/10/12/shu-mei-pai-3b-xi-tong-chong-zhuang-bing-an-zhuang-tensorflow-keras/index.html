@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="基于tinyproxy的代理服务器搭建, 魔法,程序,分享">
+    <meta name="keywords" content="树莓派3B系统重装并安装Tensorflow + Keras, 魔法,程序,分享">
     <meta name="description" content="练习魔法，改变世界(●ˇ∀ˇ●)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>基于tinyproxy的代理服务器搭建 | Magic</title>
+    <title>树莓派3B系统重装并安装Tensorflow + Keras | Magic</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -32,6 +32,7 @@
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Magic" type="application/atom+xml">
 </head>
 
 
@@ -311,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">基于tinyproxy的代理服务器搭建</h1>
+                    <h1 class="description center-align post-title">树莓派3B系统重装并安装Tensorflow + Keras</h1>
                 </div>
             </div>
         </div>
@@ -432,12 +433,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/tinyproxy/">
-                                <span class="chip bg-color">tinyproxy</span>
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                                <span class="chip bg-color">树莓派</span>
                             </a>
                         
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-                                <span class="chip bg-color">服务器</span>
+                            <a href="/tags/Tensorflow/">
+                                <span class="chip bg-color">Tensorflow</span>
+                            </a>
+                        
+                            <a href="/tags/Keras/">
+                                <span class="chip bg-color">Keras</span>
                             </a>
                         
                     </div>
@@ -461,7 +466,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-10-11
+                    2021-10-12
                 </div>
                 
 
@@ -482,89 +487,156 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>腾讯云上基于tinyproxy搭建代理服务器<span id="more"></span></p>
-<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>研究生实验室用的交换机，用网线直连测试能有100M左右的速度，但当打开视频网站（如bilibili）、QQ音乐下载、steam下载时，会出现几乎是0的下载速度，故怀疑是学校方面限制了上网的环境。具体可能涉及到上网策略或是包的过滤什么的不是很懂，不过有朋友建议自己架设服务器作为代理，故有了这次尝试，也有一定的收获。</p>
-<h2 id="2-服务器选择"><a href="#2-服务器选择" class="headerlink" title="2 服务器选择"></a>2 服务器选择</h2><p>根据现实情况选择，买服务器在校外架设是不现实的，所以先在腾讯云上用学生优惠价买了一个月的轻量级云服务器试水，单核CPU 2G内存 60G硬盘 6M带宽（穷，只能将就下） centOS，如下图：<br><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/centos.png" title="腾讯云centOS服务器"></p>
-<h2 id="3-服务器配置"><a href="#3-服务器配置" class="headerlink" title="3 服务器配置"></a>3 服务器配置</h2><p>和一般的Linux差不多，不过centOS是属于RedHat阵营的，所以apt得用yum代替（小白一枚，一开始还以为是不是系统不完整）。</p>
-<p>不过在配置之前，建议先进入云服务器的控制台，我的是腾讯云所以进入的是腾讯云服务器的控制台。重置下密码好进行第三方软件的远程登录。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE.png" title="服务器配置"></p>
-<p>另外，还需要设置控制台的服务器防火墙，开放8888端口（或者其他不冲突的端口）。一开始因为没有在控制台开放8888端口，导致后面ping服务器通（ping端口在控制台防火墙中默认是开放了的），curl服务器不通，感觉就是防火墙的问题，在机缘巧合下发现了控制台的防火墙设置（(lll￢ω￢)）。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF.png" title="网络信息"></p>
-<p>把8888端口（或者其他不冲突的端口）写入开放的规则就好了。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A7%84%E5%88%99.png" title="创建新的规则"></p>
-<p>之后使用重置密码后的账号和密码登录服务器，我用的是shell7，其他的诸如putty之类的应该也行。</p>
-<p>之后就是一些软件更新和安装操作。</p>
-<h2 id="4-配置代理服务器"><a href="#4-配置代理服务器" class="headerlink" title="4 配置代理服务器"></a>4 配置代理服务器</h2><p>因为我是直接用root用户登录的，所以前面就不需要加sudo等操作了，而且因为是云服务器，万一删除了系统文件后也比较方便重装，所以就直接用root账户进行下列操作了。</p>
-<p>更新软件。</p>
-<p><code>yum update</code></p>
-<p>安装tinyproxy，算是一个轻量级的代理服务器软件。</p>
-<p><code>yum install tinyproxy</code></p>
-<p>安装包找不到可以先装这个再尝试。</p>
-<p><code>yum install epel-release</code></p>
-<p>使用文本编辑器修改配置参数，不过在此之前建议先备份一波原先的配置文件。</p>
-<p><code>cp /etc/tinyproxy.conf /etc/tinyproxy.conf.old</code></p>
-<p>使用nano编辑该文件（vim等文本编辑软件都行）</p>
-<p><code>nano /etc/tinyproxy/tinyproxy.conf</code></p>
-<p>将Port行的端口号改成你需要的端口号，默认为8888端口。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E4%BF%AE%E6%94%B9%E7%AB%AF%E5%8F%A3.png" title="修改端口"></p>
-<p>在Allow中添加需要进行代理的主机的公网ip，在百度中搜索 本机ip 跳出来的就是本机的公网ip。或者，将所有Allow项都使用#注释掉，即允许所有ip连接该代理服务器。</p>
-<p>Allow项大概用“PageDown”按键按6下左右就能找到，或者直接查找也行。因为懒得打马，Allow项的图片就不展示了（(￣▽￣)”）。记得完成修改后使用 ctrl+x退出时选择y保存后，按回车键完成保存（其他编辑器类似）。</p>
-<p>之后重启服务。重启、开启和停止该服务的代码如下：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 重启tinyproxy服务</span><br><span class="line">service tinyproxy restart</span><br><span class="line"> </span><br><span class="line"># 开启tinyproxy服务</span><br><span class="line">service tinyproxy start</span><br><span class="line"> </span><br><span class="line"># 停止tinyproxy服务</span><br><span class="line">service tinyproxy stop</span><br></pre></td></tr></tbody></table></figure>
+                <p>本科毕设：基于树莓派和深度学习的自动驾驶小车<span id="more"></span></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Jack__Ni/article/details/105481170" title="本项目在CSDN上的记录">本项目在CSDN上的记录</a></p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><p>初步设想，树莓派小车采集图像数据，PC进行图像处理和模型训练，再下载到小车上进行运行。</p>
+<p><strong>发现问题</strong></p>
+<ol>
+<li>PC与树莓派上安装的python版本有出入（不是同一个版本）</li>
+</ol>
+<ul>
+<li><p><strong>描述：</strong>在模型下载到树莓派上运行时显示元组越界</p>
+</li>
+<li><p>解决：在将树莓派（Stretch）上的python3.5.3换成3.6.3过程中，错误地将原先的python2.7.13替换了，并使用软连接替换了3.5.3，干错直接重装树莓派系统</p>
+</li>
+</ul>
+<ol start="2">
+<li>虚拟环境的问题</li>
+</ol>
+<ul>
+<li><p><strong>描述：</strong>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/Jack__Ni/article/details/105481170" title="“树莓派4b虚拟环境下安装python3.5、tensorflow、numpy、和h5py”">树莓派4b虚拟环境下安装python3.5、tensorflow、numpy、和h5py</a>使用virtualenv安装虚拟环境时，发现激活虚拟环境后，pip3安装还是会直接安装到全局环境中，直接使用系统自带的venv虚拟环境也会出现pip安装的一些问题</p>
+</li>
+<li><p><strong>解决：</strong>不使用虚拟环境，直接将前置和依赖配置在全局全局环境中。</p>
+</li>
+</ul>
+<h2 id="2-树莓派配置"><a href="#2-树莓派配置" class="headerlink" title="2 树莓派配置"></a>2 树莓派配置</h2><h3 id="2-1-Raspbian系统重装"><a href="#2-1-Raspbian系统重装" class="headerlink" title="2.1 Raspbian系统重装"></a>2.1 Raspbian系统重装</h3><p>Pi 3B原先自带的系统是Raspbian jessie，在尝试了较为完善的系统Raspbian stretch后，尝试使用新出的系统Raspbian buster（和Pi 4B一样的系统）。</p>
+<h4 id="2-1-1-软硬件准备"><a href="#2-1-1-软硬件准备" class="headerlink" title="2.1.1 软硬件准备"></a>2.1.1 软硬件准备</h4><p>总体上，硬件：PC、SD读卡器、SD（TF）高速卡</p>
+<p>软件：分区工具DiskGenius；SD卡镜像写入工具win32diskImager；树莓派镜像</p>
+<ol>
+<li>SD卡的选择</li>
+</ol>
+<p>因为树莓派用的是SD卡（或者叫TF卡），树莓派的读取和写入速度不快，所以用的闪迪的32G Ultra 灰卡，也足够树莓派日常，就没换新的，用DiskGenius清空分区后重新建立就好了，参见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24546137/article/details/84558423" title="树莓派——树莓派3B+重装系统详细步骤">树莓派——树莓派3B+重装系统详细步骤</a>。</p>
+<ol start="2">
+<li>树莓派镜向</li>
+</ol>
+<p>详见：<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/" title="官方下载地址">官方下载地址</a></p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F.png" title="官方镜像"></p>
+<p>我下的“桌面纯净版”，因为毕设中有些用到的指令需要桌面显示，否则报错。另外，有桌面的版本可以进行远程桌面连接。需要注意的，官网上下载到的版本是buster（Raspbian的最新版，树莓派4B上装的），和stretch比可能会有点不一样。</p>
+<h3 id="2-1-2-Rspbian的重装"><a href="#2-1-2-Rspbian的重装" class="headerlink" title="2.1.2 Rspbian的重装"></a>2.1.2 Rspbian的重装</h3><p>网上的参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/467335f07e05" title="树莓派3b+安装Raspbian系统">树莓派3b+安装Raspbian系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/piaoyangguohai1/article/details/79596859" title="树莓派RASPBIAN系统安装个人经验教训">树莓派RASPBIAN系统安装个人经验教训</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_38111866/article/details/76038665#%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA%E5%99%A8%E6%83%85%E5%86%B5%E4%B8%8B%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE" title="没有显示器情况下，安装和使用树莓派">没有显示器情况下，安装和使用树莓派</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bi_ba_bo1/article/details/105049680" title="树莓派3B装系统，python环境3.5，安装numpy，tensorflow，keras和opencv">树莓派3B装系统，python环境3.5，安装numpy，tensorflow，keras和opencv</a></p>
+<ol>
+<li>SD卡分区删除与建立</li>
+</ol>
+<p>左侧栏选择SD卡，右键，删除分区（不要选错了，删错盘！），之后再右键SD卡的盘，保存分区。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/SD%E5%8D%A1%E5%88%86%E5%8C%BA%E7%BC%96%E8%BE%9101.png" title="SD卡分区编辑01"></p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/SD%E5%8D%A1%E5%88%86%E5%8C%BA%E7%BC%96%E8%BE%9102.png" title="SD卡分区编辑02"></p>
+<p>之后右键SD卡盘，快速分区，注意选择自定义1个分区、使用FAT32，同时去掉对其扇区整数倍的勾，大小我是选的默认大小。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/SD%E5%8D%A1%E5%88%86%E5%8C%BA%E7%BC%96%E8%BE%9103.png" title="SD卡分区编辑03"></p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/SD%E5%8D%A1%E5%88%86%E5%8C%BA%E7%BC%96%E8%BE%9104.png" title="SD卡分区编辑04"></p>
+<p>分区完毕，开始载入系统镜像，选择镜像路径和SD卡所在盘符，写入就好。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E8%BD%BD%E5%85%A5%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%90%9101.png" title="载入系统镜向01"></p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E8%BD%BD%E5%85%A5%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%90%9102.png" title="载入系统镜向02"></p>
+<p>完成写入后先不要退出SD卡，先进行Boot下的设置以方便下面操作。</p>
+<ol start="2">
+<li>Boot下的设置</li>
+</ol>
+<p>打开SD卡所在硬盘（默认名为boot），在该盘目录下新建空白文件名为“ssh”，以开启树莓派的ssh功能。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/boot%E7%BC%96%E8%BE%91" title="boot编辑"></p>
+<p>若需要外接HDMI，电脑记事本编辑config.txt，写入如下代码，我的除了hdmi_ignore_edid=0xa5000080需要自行写入外，其余可以删去注释“#”激活项。（因为已经配置了ssh和wifi，不用设置HDMI也无妨）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hdmi_safe=1</span><br><span class="line">config_hdmi_boost=4</span><br><span class="line">hdmi_ignore_edid=0xa5000080</span><br><span class="line">hdmi_group=2</span><br><span class="line">hdmi_mode=82</span><br></pre></td></tr></tbody></table></figure>
 
-<p>为防止linux内的防火墙对端口的封锁，可以输入此语句，不输入不知道会不会有影响(●ˇ∀ˇ●)。</p>
-<p><code>iptables -I INPUT -p tcp --dport 8888 -j ACCEPT</code></p>
-<p>已经开启防火墙的，可能还需要如下语句（小白一枚，不太确定(⊙﹏⊙)）</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=8888/tcp --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></tbody></table></figure>
+<p>为了让树莓派自动连接wifi，编辑wpa_supplicant.conf ，ssid写wifi名，psk写密码，可以按照格式增加network结构体增加可联网的wifi信息。（其中ssid的“ ”中的内容是无限名，psk中的“ ”内容则是无线密码）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"> </span><br><span class="line">network={</span><br><span class="line">    ssid="wifiname"</span><br><span class="line">    psk="password"</span><br><span class="line">    priority=1</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line">network={</span><br><span class="line">    ssid="H3C_B72892"</span><br><span class="line">    psk="a86668***"</span><br><span class="line">    key_mgmt=WPA-PSK</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>在主机（本机为win10）使用命令提示符cmd（快捷键win+r后输入cmd，或直接在任务栏的搜索框中输入cmd，打开命令提示符）验证代理服务器是否就绪，其他系统也类似：</p>
-<p>方法1：代码格式为：curl -x 服务器IP:开放的端口 httpbin.org/get</p>
-<p><code>curl -x 180.123.148.125:8888 httpbin.org/get</code></p>
-<p>若有返回值，说明代理服务器可以用了，像这样：</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E8%BF%9E%E9%80%9A%E6%B5%8B%E8%AF%95.png" title="连通测试"></p>
-<p>方法2：同样是在cmd中，输入代码：curl ip.sb –proxy 代理服务器公网ip:端口号，即：</p>
-<p><code>curl ip.sb --proxy 180.123.148.125:8888</code></p>
-<p>若返回了本机ip地址，即说明代理服务器可用。</p>
-<h2 id="5-使用代理服务器"><a href="#5-使用代理服务器" class="headerlink" title="5 使用代理服务器"></a>5 使用代理服务器</h2><p>安装好代理服务器后，下一步是如何使用。</p>
-<h3 id="5-1-浏览器使用代理服务器"><a href="#5-1-浏览器使用代理服务器" class="headerlink" title="5.1 浏览器使用代理服务器"></a>5.1 浏览器使用代理服务器</h3><p>本机是win10，若只是单纯的浏览器使用代理服务器上网，可以安装组件SwitchyOmega，以火狐浏览器为例。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6.png" title="扩展插件"></p>
-<p>打开扩展和主题，直接在搜索框搜索SwitchyOmega并安装。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E6%90%9C%E7%B4%A2%E6%8F%92%E4%BB%B6.png" title="搜索插件"></p>
-<p>之后的切换只要在按钮中选择切换就行了。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86.png" title="系统代理"></p>
-<h3 id="5-2-系统使用代理"><a href="#5-2-系统使用代理" class="headerlink" title="5.2 系统使用代理"></a>5.2 系统使用代理</h3><p>打开Internet选项。其中一种方法是使用win+r打开运行框，输入control打开控制面板，选择Internet选项，在连接页面中选择局域网设置。</p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/Internet%E5%B1%9E%E6%80%A7.png" title="Internet属性"></p>
-<p>之后勾选为LAN使用代理服务器并写入代理服务器的地址和端口。</p>
-<p>btw，在linux代理服务器中可以使用如下语句得到服务器的公网ip（或者在云服务器控制台中就有标明公网ip）。</p>
-<p><code>curl icanhazip.com</code></p>
-<p><img src="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/LAN%E8%AE%BE%E7%BD%AE.png" title="LAN设置"></p>
-<p>按下确定的那一刻，就完成了代理服务器的连接，以后不使用代理服务器的话取消勾选即可。</p>
-<p>连接完成后，若使用浏览器时记得按那个插件小图标切换到系统代理模式，此时再在百度搜索框中输入本机ip的话，应该会跳出代理服务器的ip。</p>
-<h2 id="6-一些问题和解决"><a href="#6-一些问题和解决" class="headerlink" title="6 一些问题和解决"></a>6 一些问题和解决</h2><p>代理服务器只是处于可以使用的状态，但存在一些诸如不稳定、连接会断掉的问题。</p>
-<h3 id="6-1-代理有时会失效的问题"><a href="#6-1-代理有时会失效的问题" class="headerlink" title="6.1 代理有时会失效的问题"></a>6.1 代理有时会失效的问题</h3><p>遇到过代理第二天使用时失效的情况，此时重启服务器就好了，不过为了不每次重启服务器都那么麻烦，或者为了不每天手动启动服务器，干脆弄了早上自动重启服务器，并且开机启动tinyproxy服务。</p>
-<h4 id="6-1-1-定时重启服务器"><a href="#6-1-1-定时重启服务器" class="headerlink" title="6.1.1 定时重启服务器"></a>6.1.1 定时重启服务器</h4><p>在linux服务器端输入命令查看是否具有定时任务的库。</p>
-<p><code>crontab -l</code></p>
-<p>假如说没安装报错，那就多一步，安装crontab。</p>
-<p><code>yum install vixie-cron crontabs</code></p>
-<p>一般不报错就说明安装过了。</p>
-<p>设置开机启动crontab</p>
-<p><code>chkconfig crond on</code></p>
-<p>启动crondtab</p>
-<p><code>service crond start</code></p>
-<p>开始添加定时任务。</p>
-<p>首先，打开crontab的编辑模式。</p>
-<p><code>crontab –e</code></p>
-<p>此时会进入一个类似文本编辑器的界面，而且用法很像vim…..。</p>
-<p>按 i 进入编辑模式，将光标移到最后一行的行末时按回车进入新的一行，并输入：</p>
-<p><code>05 06 * * * /sbin/reboot</code></p>
-<p>表示每天6点05分重启服务器，其他时间段也照着格式修改参数就行。</p>
-<h4 id="6-1-2-设置开机启动tinyproxy服务"><a href="#6-1-2-设置开机启动tinyproxy服务" class="headerlink" title="6.1.2 设置开机启动tinyproxy服务"></a>6.1.2 设置开机启动tinyproxy服务</h4><p>启动Tinyproxy服务，并设置开机自启。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --level 345 tinyproxy on</span><br><span class="line">systemctl restart tinyproxy.service</span><br><span class="line">systemctl enable tinyproxy.service</span><br></pre></td></tr></tbody></table></figure>
+<p>至此树莓派的系统基本设置已完成。</p>
+<h2 id="2-2-Raspbian配置"><a href="#2-2-Raspbian配置" class="headerlink" title="2.2 Raspbian配置"></a>2.2 Raspbian配置</h2><p>开启SSH、设置wi-fi、开启强制HDMI前文已经包含，下面主要讲启动树莓派之后的设置。</p>
+<h3 id="2-2-1-树莓派的连接"><a href="#2-2-1-树莓派的连接" class="headerlink" title="2.2.1 树莓派的连接"></a>2.2.1 树莓派的连接</h3><p>我用的登录树莓派的软件主要是putty或直接电脑的远程桌面，分别对应不需要桌面时的情况和需要桌面的情况。当如前文开启了ssh后，可以登录putty（远程桌面还需要下载软件，后文介绍），需要直到树莓派所在的局域网ip（前提：PC与树莓派处于同一局域网中，比如同一个2.4G的wifi下，其中树莓派3B不支持5GHz的wi-fi连接）。至于具体的ip可以在windows的cmd上用ipconfig或arp -a进行查看，不过个人认为比较麻烦，有时候也搜不到，我用的是Advance IP Scanner。</p>
+<p>另外，树莓派默认ssh账户为pi，密码为raspberry</p>
+<p>以下操作最先都是在putty中完成。</p>
+<ol>
+<li>修改密码</li>
+</ol>
+<p>登录pi后，建议修改新的并且记得住的密码。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 修改pi密码</span><br><span class="line">sudo passwd pi</span><br><span class="line"># 修改root密码</span><br><span class="line">sudo passwd root</span><br></pre></td></tr></tbody></table></figure>
 
-<p>系统启动后，得执行一次：</p>
-<p><code>service tinyproxy restart</code></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33725807/article/details/89760274" title="关于tinyproxy问题处理">关于tinyproxy问题处理</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/masako/p/11459496.html" title="使用tinyproxy进行ip代理">使用tinyproxy进行ip代理</a><br><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/30095449.html" title="linux的定时重启的具体命令">linux的定时重启的具体命令</a></p>
-<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>本人linux、网络小白，只是按照网上大佬的方法暂时完成了想要的功能，发现还不错，心血来潮就记录了一波。本来其实快要放弃了，因为ping得通，curl不通，以为学校服务器有防火墙拦截了，结果山穷水复疑无路，居然成功了。</p>
+<ol start="2">
+<li>时区选择</li>
+</ol>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 打开时区设置</span><br><span class="line">sudo dpkg-reconfigure tzdata</span><br></pre></td></tr></tbody></table></figure>
+
+<p>时区选择：亚洲（Asia）–&gt;上海（Shanghai）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 个人习惯先备份（可省略）</span><br><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources_old.list</span><br><span class="line"> </span><br><span class="line"># 树莓派系统默认使用nano做为编辑器</span><br><span class="line"># 修改完成后使用ctrl+x退出，退出时会提示是否保存文件, 按Y后再按回车即可</span><br><span class="line">sudo nano /etc/apt/sources.list</span><br><span class="line"> </span><br><span class="line"># 修改系统源为清华大学源</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi</span><br></pre></td></tr></tbody></table></figure>
+
+<p>退出文件后，可以更新软件了。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 更新软件列表</span><br><span class="line">sudo apt-get update</span><br><span class="line"># 更新软件</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="3">
+<li>更换pip源</li>
+</ol>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># linux 编辑~/.pip/pip.conf，由于我的不存在.pip目录，故需要新建一个.pip目录</span><br><span class="line">mkdir ~/.pip</span><br><span class="line"> </span><br><span class="line"># 同样个人习惯备份</span><br><span class="line">sudo cp ~/.pip/pip.conf ~/.pip/pip_old.conf</span><br><span class="line"> </span><br><span class="line"># 使用nano编辑配置</span><br><span class="line">sudo nano ~/.pip/pip.conf</span><br><span class="line"> </span><br><span class="line"># 更换为清华的源，保存同上，ctrl+x，按y 回车确定</span><br><span class="line">[global]</span><br><span class="line">timeout = 1000</span><br><span class="line">index-url = https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">[install]</span><br><span class="line">use-mirrors = true </span><br><span class="line">mirrors = https://pypi.tuna.tsinghua.edu.cn/simple </span><br><span class="line">trusted-host = pypi.tuna.tsinghua.edu.cn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中最核心的是[golbal]中的index-url项替换。</p>
+<h3 id="2-2-2-个人喜好的设置"><a href="#2-2-2-个人喜好的设置" class="headerlink" title="2.2.2 个人喜好的设置"></a>2.2.2 个人喜好的设置</h3><p>按照个人习惯，可以安装vim、可以安装远程桌面服务、可以更换树莓派为中文等。</p>
+<ol>
+<li>安装vim</li>
+</ol>
+<p>vim说实话我觉得比nano复杂一点，基本小的修改我用的nano，代码编写直接在pc上用pycharm了，vim的基本使用包括3种状态——简单来说是：普通（不可编辑）、编辑（可输入与删除）、控制（文件保存和退出等指令），进入文件时默认为普通状态，按i（等）按键进入编辑状态编辑，完成后按esc回到普通状态，输入“:wq”写入文件并退出。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 安装vim</span><br><span class="line">sudo apt-get install vim</span><br></pre></td></tr></tbody></table></figure>
+
+<p>vim配置，打开高亮和代码行号</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 个人习惯备份</span><br><span class="line">sudo cp /etc/vim/vimrc /etc/vim/vimrc_old</span><br><span class="line"># 修改配置</span><br><span class="line">sudo vim /etc/vim/vimrc</span><br><span class="line">    </span><br><span class="line"># 语法高亮</span><br><span class="line">syntax on</span><br><span class="line"># 显示行号</span><br><span class="line">set nu</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="2">
+<li>远程桌面安装</li>
+</ol>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 安装vnc服务</span><br><span class="line">sudo apt-get install tightvncserver</span><br><span class="line"># 安装远程桌面</span><br><span class="line">sudo apt-get install xrdp </span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="3">
+<li>中文显示</li>
+</ol>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 安装中文字体库</span><br><span class="line">sudo apt-get install ttf-wqy-zenhei</span><br><span class="line"> </span><br><span class="line"># 设置中文显示</span><br><span class="line">sudo raspi-config</span><br></pre></td></tr></tbody></table></figure>
+
+<p>进入树莓派的设置中心，使用方向按键控制上下，使用回车或esc键控制进退，选择4 Localisation Options –&gt; I1 Change Locale进入语言设置。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%AE%BE%E7%BD%AE%E4%B8%AD%E5%BF%83.png" title="树莓派设置中心"></p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%AE%BE%E7%BD%AE%E4%B8%AD%E5%BF%832.png" title="树莓派设置中心2"></p>
+<p>在语言设置界面，使用方向按键“↓”或下翻页“PGDN END”按住不放，一直到光标停在zh_CN.UTF-8，按空格键打勾（即*号），再按回车键（相当于ok）。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%AE%BE%E7%BD%AE%E4%B8%AD%E5%BF%833.png" title="树莓派设置中心3"></p>
+<p>按下回车键后，进入默认语言选择，这里选择zh_CN.UTF-8，光标选择后按下回车，树莓派自动进行中文替换。</p>
+<p>替换完成后，会自动回到设置总界面，按esc即可退出。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%AE%BE%E7%BD%AE%E4%B8%AD%E5%BF%834.png" title="树莓派设置中心4"></p>
+<p>最后重启树莓派。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 重启树莓派</span><br><span class="line">sudo reboot</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="4">
+<li>根据个人喜好设置</li>
+</ol>
+<p>树莓派安装好了远程桌面，可以尝试使用win10自带的远程桌面登录。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5.png" title="远程桌面连接"></p>
+<p>登录后界面可以根据个人喜好进行调整。</p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A52.png" title="远程桌面连接2"></p>
+<p><img src="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A53.png" title="远程桌面连接3"></p>
+<h2 id="2-3-pip3安装Tensorflow-Keras"><a href="#2-3-pip3安装Tensorflow-Keras" class="headerlink" title="2.3 pip3安装Tensorflow + Keras"></a>2.3 pip3安装Tensorflow + Keras</h2><p>下面开始环境安装，需要注意的是buster版自带的python是3.7的，不过对安装并无影响，甚至安装Tensorflow等会顺利很多。</p>
+<p>未更新软件的先运行一波更新。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 更新软件列表</span><br><span class="line">sudo apt-get update</span><br><span class="line"># 更新软件</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="2-3-1-pip3-安装部分依赖"><a href="#2-3-1-pip3-安装部分依赖" class="headerlink" title="2.3.1 pip3 安装部分依赖"></a>2.3.1 pip3 安装部分依赖</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 进入想要存放下载文件的目录（以防因网络问题需要wget下载），这里直接在pi目录下</span><br><span class="line">cd ~</span><br><span class="line"> </span><br><span class="line"># 安装各类依赖（部分依赖可能没给全，安装Tensorflow、Keras等包时会自动检测的，到时候再补也是完全OK的）</span><br><span class="line">sudo pip3 install grpcio</span><br><span class="line">sudo pip3 install libatlas-base-dev</span><br><span class="line">sudo pip3 install h5py</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="2-3-2-安装Tensorflow-Keras"><a href="#2-3-2-安装Tensorflow-Keras" class="headerlink" title="2.3.2 安装Tensorflow + Keras"></a>2.3.2 安装Tensorflow + Keras</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Tensorflow建议安装1.13版的，不带版本号安装的1.14的我用不了</span><br><span class="line">sudo pip3 install tensorflow==1.13.1</span><br><span class="line">sudo pip3 install keras</span><br><span class="line"> </span><br><span class="line"># -*- 若因网络问题出现timeout或hash值错误，建议手动下载whl文件并进行本地安装，举个例子：</span><br><span class="line"># 在安装grpcio时因网络问题报错，会弹出提示让你运行“wget + 一堆网址”手动下载，你可以按照提示运行，或者直接复制网址，粘贴到浏览器或粘贴到下载器的新建任务中，会快很多。（有时候用火狐浏览器下载依然会断掉，用QQ浏览器虽然只是快一点，但不会断；使用迅雷可能会更快一点，特别当你氪金后，他的服务器一高兴说不定会帮你加速）</span><br><span class="line"> </span><br><span class="line"># 在树莓派终端使用wget下载的话，再输入sudo pip3 install + 包的详细名称（包的名称可以使用tab填充）就可以安装了；使用电脑的软件下载的话需要另外将文件上传到树莓派中，我用的FileZilla，文件一拖就可以上传了，不管传文件还是传代码比原先用keil下载代码到stm32上都方便太多，也快太多。</span><br><span class="line"># 安装示例：sudo pip3 install grpcio-1.28.1-cp37-cp37m-linux_armv7l.whl</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="2-3-3-网络问题的解决方法"><a href="#2-3-3-网络问题的解决方法" class="headerlink" title="2.3.3 网络问题的解决方法"></a>2.3.3 网络问题的解决方法</h3><p>问题例子：运行pip3 install grpcio后出现timeout或hash no mach报错，并提示使用代码“wget + 一串网址”进行手动下载。</p>
+<ol>
+<li>方法一：树莓派Wget下载</li>
+</ol>
+<p>复制“wget + 那串网址”，粘贴到终端中运行，下载完成后输入代码（在输入sudo pip3 install 和包开头的字母后可尝试用tab键自动填充包名）：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 注：此代码只适用我下载的版本</span><br><span class="line">sudo pip3 install grpcio-1.28.1-cp37-cp37m-linux_armv7l.whl</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="2">
+<li>方法二：第三方软件下载后上传到树莓派并安装</li>
+</ol>
+<p>复制报错提示的网址，于第三方软件（浏览器或下载软件）下载好包后，使用FileZilla将文件上传到树莓派，并使用法一中的安装代码进行安装。</p>
 
                 
             </div>
@@ -591,7 +663,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jack-ni.com/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">http://jack-ni.com/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</a>
+                    <a href="http://jack-ni.com/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/">http://jack-ni.com/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -629,12 +701,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/tinyproxy/">
-                                    <span class="chip bg-color">tinyproxy</span>
+                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                                    <span class="chip bg-color">树莓派</span>
                                 </a>
                             
-                                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-                                    <span class="chip bg-color">服务器</span>
+                                <a href="/tags/Tensorflow/">
+                                    <span class="chip bg-color">Tensorflow</span>
+                                </a>
+                            
+                                <a href="/tags/Keras/">
+                                    <span class="chip bg-color">Keras</span>
                                 </a>
                             
                         </div>
@@ -811,24 +887,24 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/10/11/%E5%9F%BA%E4%BA%8Etinyproxy%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
+                <a href="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="基于tinyproxy的代理服务器搭建">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="树莓派3B系统重装并安装Tensorflow + Keras">
                         
-                        <span class="card-title">基于tinyproxy的代理服务器搭建</span>
+                        <span class="card-title">树莓派3B系统重装并安装Tensorflow + Keras</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            腾讯云上基于tinyproxy搭建代理服务器
+                            本科毕设：基于树莓派和深度学习的自动驾驶小车
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
                             </span>
                         <span class="publish-author">
                             
@@ -846,12 +922,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/tinyproxy/">
-                        <span class="chip bg-color">tinyproxy</span>
+                    <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                        <span class="chip bg-color">树莓派</span>
                     </a>
                     
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-                        <span class="chip bg-color">服务器</span>
+                    <a href="/tags/Tensorflow/">
+                        <span class="chip bg-color">Tensorflow</span>
+                    </a>
+                    
+                    <a href="/tags/Keras/">
+                        <span class="chip bg-color">Keras</span>
                     </a>
                     
                 </div>
@@ -865,32 +945,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/11/Magic-World-Magic-Code/">
+                <a href="/2021/10/12/zi-dong-jia-shi-xiao-che/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Markdown Magic">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="自动驾驶小车">
                         
-                        <span class="card-title">Markdown Magic</span>
+                        <span class="card-title">自动驾驶小车</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Markdown语法
-Markdown 魔法
+                            本科毕设：基于树莓派和深度学习的自动驾驶小车
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%AF%AD%E6%B3%95/" class="post-category">
-                                    语法
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                    项目
                                 </a>
                             
                             
@@ -900,12 +979,16 @@ Markdown 魔法
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Markdown/">
-                        <span class="chip bg-color">Markdown</span>
+                    <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                        <span class="chip bg-color">树莓派</span>
                     </a>
                     
-                    <a href="/tags/%E9%AD%94%E6%B3%95/">
-                        <span class="chip bg-color">魔法</span>
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/">
+                        <span class="chip bg-color">自动驾驶</span>
                     </a>
                     
                 </div>
@@ -1136,6 +1219,8 @@ Markdown 魔法
     <a href="https://github.com/Jack-Ni" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
+
+
 
 
 

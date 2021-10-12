@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 魔法,程序,分享">
+    <meta name="keywords" content="基于tinyproxy的代理服务器搭建, 魔法,程序,分享">
     <meta name="description" content="练习魔法，改变世界(●ˇ∀ˇ●)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Magic</title><meta name="robots" content="noindex">
+    <title>基于tinyproxy的代理服务器搭建 | Magic</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -317,7 +317,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">基于tinyproxy的代理服务器搭建</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/tinyproxy/">
+                                <span class="chip bg-color">tinyproxy</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                                <span class="chip bg-color">服务器</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%93%8D%E4%BD%9C/" class="post-category">
+                                操作
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    1985-10-26
+                    2021-10-11
                 </div>
                 
 
@@ -466,20 +483,90 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+                <p>腾讯云上基于tinyproxy搭建代理服务器<span id="more"></span></p>
+<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>研究生实验室用的交换机，用网线直连测试能有100M左右的速度，但当打开视频网站（如bilibili）、QQ音乐下载、steam下载时，会出现几乎是0的下载速度，故怀疑是学校方面限制了上网的环境。具体可能涉及到上网策略或是包的过滤什么的不是很懂，不过有朋友建议自己架设服务器作为代理，故有了这次尝试，也有一定的收获。</p>
+<h2 id="2-服务器选择"><a href="#2-服务器选择" class="headerlink" title="2 服务器选择"></a>2 服务器选择</h2><p>根据现实情况选择，买服务器在校外架设是不现实的，所以先在腾讯云上用学生优惠价买了一个月的轻量级云服务器试水，单核CPU 2G内存 60G硬盘 6M带宽（穷，只能将就下） centOS，如下图：<br><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/centos.png" title="腾讯云centOS服务器"></p>
+<h2 id="3-服务器配置"><a href="#3-服务器配置" class="headerlink" title="3 服务器配置"></a>3 服务器配置</h2><p>和一般的Linux差不多，不过centOS是属于RedHat阵营的，所以apt得用yum代替（小白一枚，一开始还以为是不是系统不完整）。</p>
+<p>不过在配置之前，建议先进入云服务器的控制台，我的是腾讯云所以进入的是腾讯云服务器的控制台。重置下密码好进行第三方软件的远程登录。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE.png" title="服务器配置"></p>
+<p>另外，还需要设置控制台的服务器防火墙，开放8888端口（或者其他不冲突的端口）。一开始因为没有在控制台开放8888端口，导致后面ping服务器通（ping端口在控制台防火墙中默认是开放了的），curl服务器不通，感觉就是防火墙的问题，在机缘巧合下发现了控制台的防火墙设置（(lll￢ω￢)）。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF.png" title="网络信息"></p>
+<p>把8888端口（或者其他不冲突的端口）写入开放的规则就好了。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A7%84%E5%88%99.png" title="创建新的规则"></p>
+<p>之后使用重置密码后的账号和密码登录服务器，我用的是shell7，其他的诸如putty之类的应该也行。</p>
+<p>之后就是一些软件更新和安装操作。</p>
+<h2 id="4-配置代理服务器"><a href="#4-配置代理服务器" class="headerlink" title="4 配置代理服务器"></a>4 配置代理服务器</h2><p>因为我是直接用root用户登录的，所以前面就不需要加sudo等操作了，而且因为是云服务器，万一删除了系统文件后也比较方便重装，所以就直接用root账户进行下列操作了。</p>
+<p>更新软件。</p>
+<p><code>yum update</code></p>
+<p>安装tinyproxy，算是一个轻量级的代理服务器软件。</p>
+<p><code>yum install tinyproxy</code></p>
+<p>安装包找不到可以先装这个再尝试。</p>
+<p><code>yum install epel-release</code></p>
+<p>使用文本编辑器修改配置参数，不过在此之前建议先备份一波原先的配置文件。</p>
+<p><code>cp /etc/tinyproxy.conf /etc/tinyproxy.conf.old</code></p>
+<p>使用nano编辑该文件（vim等文本编辑软件都行）</p>
+<p><code>nano /etc/tinyproxy/tinyproxy.conf</code></p>
+<p>将Port行的端口号改成你需要的端口号，默认为8888端口。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E4%BF%AE%E6%94%B9%E7%AB%AF%E5%8F%A3.png" title="修改端口"></p>
+<p>在Allow中添加需要进行代理的主机的公网ip，在百度中搜索 本机ip 跳出来的就是本机的公网ip。或者，将所有Allow项都使用#注释掉，即允许所有ip连接该代理服务器。</p>
+<p>Allow项大概用“PageDown”按键按6下左右就能找到，或者直接查找也行。因为懒得打马，Allow项的图片就不展示了（(￣▽￣)”）。记得完成修改后使用 ctrl+x退出时选择y保存后，按回车键完成保存（其他编辑器类似）。</p>
+<p>之后重启服务。重启、开启和停止该服务的代码如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 重启tinyproxy服务</span><br><span class="line">service tinyproxy restart</span><br><span class="line"> </span><br><span class="line"># 开启tinyproxy服务</span><br><span class="line">service tinyproxy start</span><br><span class="line"> </span><br><span class="line"># 停止tinyproxy服务</span><br><span class="line">service tinyproxy stop</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
+<p>为防止linux内的防火墙对端口的封锁，可以输入此语句，不输入不知道会不会有影响(●ˇ∀ˇ●)。</p>
+<p><code>iptables -I INPUT -p tcp --dport 8888 -j ACCEPT</code></p>
+<p>已经开启防火墙的，可能还需要如下语句（小白一枚，不太确定(⊙﹏⊙)）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=8888/tcp --permanent</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
+<p>在主机（本机为win10）使用命令提示符cmd（快捷键win+r后输入cmd，或直接在任务栏的搜索框中输入cmd，打开命令提示符）验证代理服务器是否就绪，其他系统也类似：</p>
+<p>方法1：代码格式为：curl -x 服务器IP:开放的端口 httpbin.org/get</p>
+<p><code>curl -x 180.123.148.125:8888 httpbin.org/get</code></p>
+<p>若有返回值，说明代理服务器可以用了，像这样：</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E8%BF%9E%E9%80%9A%E6%B5%8B%E8%AF%95.png" title="连通测试"></p>
+<p>方法2：同样是在cmd中，输入代码：curl ip.sb –proxy 代理服务器公网ip:端口号，即：</p>
+<p><code>curl ip.sb --proxy 180.123.148.125:8888</code></p>
+<p>若返回了本机ip地址，即说明代理服务器可用。</p>
+<h2 id="5-使用代理服务器"><a href="#5-使用代理服务器" class="headerlink" title="5 使用代理服务器"></a>5 使用代理服务器</h2><p>安装好代理服务器后，下一步是如何使用。</p>
+<h3 id="5-1-浏览器使用代理服务器"><a href="#5-1-浏览器使用代理服务器" class="headerlink" title="5.1 浏览器使用代理服务器"></a>5.1 浏览器使用代理服务器</h3><p>本机是win10，若只是单纯的浏览器使用代理服务器上网，可以安装组件SwitchyOmega，以火狐浏览器为例。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6.png" title="扩展插件"></p>
+<p>打开扩展和主题，直接在搜索框搜索SwitchyOmega并安装。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E6%90%9C%E7%B4%A2%E6%8F%92%E4%BB%B6.png" title="搜索插件"></p>
+<p>之后的切换只要在按钮中选择切换就行了。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86.png" title="系统代理"></p>
+<h3 id="5-2-系统使用代理"><a href="#5-2-系统使用代理" class="headerlink" title="5.2 系统使用代理"></a>5.2 系统使用代理</h3><p>打开Internet选项。其中一种方法是使用win+r打开运行框，输入control打开控制面板，选择Internet选项，在连接页面中选择局域网设置。</p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/Internet%E5%B1%9E%E6%80%A7.png" title="Internet属性"></p>
+<p>之后勾选为LAN使用代理服务器并写入代理服务器的地址和端口。</p>
+<p>btw，在linux代理服务器中可以使用如下语句得到服务器的公网ip（或者在云服务器控制台中就有标明公网ip）。</p>
+<p><code>curl icanhazip.com</code></p>
+<p><img src="/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/LAN%E8%AE%BE%E7%BD%AE.png" title="LAN设置"></p>
+<p>按下确定的那一刻，就完成了代理服务器的连接，以后不使用代理服务器的话取消勾选即可。</p>
+<p>连接完成后，若使用浏览器时记得按那个插件小图标切换到系统代理模式，此时再在百度搜索框中输入本机ip的话，应该会跳出代理服务器的ip。</p>
+<h2 id="6-一些问题和解决"><a href="#6-一些问题和解决" class="headerlink" title="6 一些问题和解决"></a>6 一些问题和解决</h2><p>代理服务器只是处于可以使用的状态，但存在一些诸如不稳定、连接会断掉的问题。</p>
+<h3 id="6-1-代理有时会失效的问题"><a href="#6-1-代理有时会失效的问题" class="headerlink" title="6.1 代理有时会失效的问题"></a>6.1 代理有时会失效的问题</h3><p>遇到过代理第二天使用时失效的情况，此时重启服务器就好了，不过为了不每次重启服务器都那么麻烦，或者为了不每天手动启动服务器，干脆弄了早上自动重启服务器，并且开机启动tinyproxy服务。</p>
+<h4 id="6-1-1-定时重启服务器"><a href="#6-1-1-定时重启服务器" class="headerlink" title="6.1.1 定时重启服务器"></a>6.1.1 定时重启服务器</h4><p>在linux服务器端输入命令查看是否具有定时任务的库。</p>
+<p><code>crontab -l</code></p>
+<p>假如说没安装报错，那就多一步，安装crontab。</p>
+<p><code>yum install vixie-cron crontabs</code></p>
+<p>一般不报错就说明安装过了。</p>
+<p>设置开机启动crontab</p>
+<p><code>chkconfig crond on</code></p>
+<p>启动crondtab</p>
+<p><code>service crond start</code></p>
+<p>开始添加定时任务。</p>
+<p>首先，打开crontab的编辑模式。</p>
+<p><code>crontab –e</code></p>
+<p>此时会进入一个类似文本编辑器的界面，而且用法很像vim…..。</p>
+<p>按 i 进入编辑模式，将光标移到最后一行的行末时按回车进入新的一行，并输入：</p>
+<p><code>05 06 * * * /sbin/reboot</code></p>
+<p>表示每天6点05分重启服务器，其他时间段也照着格式修改参数就行。</p>
+<h4 id="6-1-2-设置开机启动tinyproxy服务"><a href="#6-1-2-设置开机启动tinyproxy服务" class="headerlink" title="6.1.2 设置开机启动tinyproxy服务"></a>6.1.2 设置开机启动tinyproxy服务</h4><p>启动Tinyproxy服务，并设置开机自启。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chkconfig --level 345 tinyproxy on</span><br><span class="line">systemctl restart tinyproxy.service</span><br><span class="line">systemctl enable tinyproxy.service</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
+<p>系统启动后，得执行一次：</p>
+<p><code>service tinyproxy restart</code></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33725807/article/details/89760274" title="关于tinyproxy问题处理">关于tinyproxy问题处理</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/masako/p/11459496.html" title="使用tinyproxy进行ip代理">使用tinyproxy进行ip代理</a><br><a target="_blank" rel="noopener" href="https://zhidao.baidu.com/question/30095449.html" title="linux的定时重启的具体命令">linux的定时重启的具体命令</a></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>本人linux、网络小白，只是按照网上大佬的方法暂时完成了想要的功能，发现还不错，心血来潮就记录了一波。本来其实快要放弃了，因为ping得通，curl不通，以为学校服务器有防火墙拦截了，结果山穷水复疑无路，居然成功了。</p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<!-- flag of hidden posts -->
                 
             </div>
             <hr/>
@@ -505,7 +592,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jack-ni.com/1985/10/26/hello-world/">http://jack-ni.com/1985/10/26/hello-world/</a>
+                    <a href="http://jack-ni.com/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/">http://jack-ni.com/2021/10/11/ji-yu-tinyproxy-de-dai-li-fu-wu-qi-da-jian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -542,7 +629,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/tinyproxy/">
+                                    <span class="chip bg-color">tinyproxy</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                                    <span class="chip bg-color">服务器</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -712,39 +807,53 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/1985/10/26/hello-world/">
+                <a href="/2021/10/12/shou-ye-an-niu-gong-neng-tan-suo-ji-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="首页按钮功能探索记录">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">首页按钮功能探索记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            对首页按钮编辑的探索
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>1985-10-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jack Ni
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8E%A2%E7%B4%A2/" class="post-category">
+                                    探索
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%8C%89%E9%92%AE/">
+                        <span class="chip bg-color">按钮</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A2%E7%B4%A2/">
+                        <span class="chip bg-color">探索</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -752,37 +861,53 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/1985/10/26/hello-world/">
+                <a href="/2021/10/11/magic-world-magic-code/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Markdown Magic">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">Markdown Magic</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Markdown语法
+Markdown 魔法
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>1985-10-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-11
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jack Ni
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AF%AD%E6%B3%95/" class="post-category">
+                                    语法
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Markdown/">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%AD%94%E6%B3%95/">
+                        <span class="chip bg-color">魔法</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

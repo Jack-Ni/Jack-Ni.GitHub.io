@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 魔法,程序,分享">
+    <meta name="keywords" content="自动驾驶小车, 魔法,程序,分享">
     <meta name="description" content="练习魔法，改变世界(●ˇ∀ˇ●)">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | Magic</title><meta name="robots" content="noindex">
+    <title>自动驾驶小车 | Magic</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">自动驾驶小车</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                                <span class="chip bg-color">树莓派</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/">
+                                <span class="chip bg-color">自动驾驶</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE/" class="post-category">
+                                项目
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,7 +466,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    1985-10-26
+                    2021-10-12
                 </div>
                 
 
@@ -466,20 +487,56 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+                <p>本科毕设：基于树莓派和深度学习的自动驾驶小车<span id="more"></span></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Jack__Ni/article/details/105481170" title="本项目在CSDN上的记录">本项目在CSDN上的记录</a></p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><p>初步设想，树莓派小车采集图像数据，PC进行图像处理和模型训练，再下载到小车上进行运行。</p>
+<p><strong>发现问题</strong></p>
+<ol>
+<li>PC与树莓派上安装的python版本有出入（不是同一个版本）</li>
+</ol>
+<ul>
+<li><p><strong>描述：</strong>在模型下载到树莓派上运行时显示元组越界</p>
+</li>
+<li><p>解决：在将树莓派（Stretch）上的python3.5.3换成3.6.3过程中，错误地将原先的python2.7.13替换了，并使用软连接替换了3.5.3，干错直接重装树莓派系统</p>
+</li>
+</ul>
+<ol start="2">
+<li>虚拟环境的问题</li>
+</ol>
+<ul>
+<li><p><strong>描述：</strong>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/Jack__Ni/article/details/105481170" title="“树莓派4b虚拟环境下安装python3.5、tensorflow、numpy、和h5py”"></a>使用virtualenv安装虚拟环境时，发现激活虚拟环境后，pip3安装还是会直接安装到全局环境中，直接使用系统自带的venv虚拟环境也会出现pip安装的一些问题</p>
+</li>
+<li><p><strong>解决：</strong>不使用虚拟环境，直接将前置和依赖配置在全局全局环境中。</p>
+</li>
+</ul>
+<h2 id="2-树莓派配置"><a href="#2-树莓派配置" class="headerlink" title="2 树莓派配置"></a>2 树莓派配置</h2><h3 id="2-1-Raspbian系统重装"><a href="#2-1-Raspbian系统重装" class="headerlink" title="2.1 Raspbian系统重装"></a>2.1 Raspbian系统重装</h3><p>Pi 3B原先自带的系统是Raspbian jessie，在尝试了较为完善的系统Raspbian stretch后，尝试使用新出的系统Raspbian buster（和Pi 4B一样的系统）。</p>
+<h4 id="2-1-1-软硬件准备"><a href="#2-1-1-软硬件准备" class="headerlink" title="2.1.1 软硬件准备"></a>2.1.1 软硬件准备</h4><p>总体上，硬件：PC、SD读卡器、SD（TF）高速卡</p>
+<p>软件：分区工具DiskGenius；SD卡镜像写入工具win32diskImager；树莓派镜像</p>
+<ol>
+<li>SD卡的选择</li>
+</ol>
+<p>因为树莓派用的是SD卡（或者叫TF卡），树莓派的读取和写入速度不快，所以用的闪迪的32G Ultra 灰卡，也足够树莓派日常，就没换新的，用DiskGenius清空分区后重新建立就好了，参见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24546137/article/details/84558423" title="树莓派——树莓派3B+重装系统详细步骤"></a>。</p>
+<ol start="2">
+<li>树莓派镜向</li>
+</ol>
+<p>详见：<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/" title="官方下载地址"></a></p>
+<p><img src="/2021/10/12/zi-dong-jia-shi-xiao-che/%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F.png" title="官方镜像"></p>
+<p>我下的“桌面纯净版”，因为毕设中有些用到的指令需要桌面显示，否则报错。另外，有桌面的版本可以进行远程桌面连接。需要注意的，官网上下载到的版本是buster（Raspbian的最新版，树莓派4B上装的），和stretch比可能会有点不一样。</p>
+<ol start="3">
+<li>Rspbian的重装</li>
+</ol>
+<p>网上的参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/467335f07e05" title="树莓派3b+安装Raspbian系统"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/piaoyangguohai1/article/details/79596859" title="树莓派RASPBIAN系统安装个人经验教训"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_38111866/article/details/76038665#%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA%E5%99%A8%E6%83%85%E5%86%B5%E4%B8%8B%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E6%A0%91%E8%8E%93%E6%B4%BE" title="没有显示器情况下，安装和使用树莓派"></a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bi_ba_bo1/article/details/105049680" title="树莓派3B装系统，python环境3.5，安装numpy，tensorflow，keras和opencv"></a></p>
+<p><strong>SD卡分区删除与建立</strong></p>
+<p>左侧栏选择SD卡，右键，删除分区（不要选错了，删错盘！），之后再右键SD卡的盘，保存分区。</p>
+<p><img src="/2021/10/12/zi-dong-jia-shi-xiao-che/SD%E5%8D%A1%E5%88%86%E5%8C%BA%E7%BC%96%E8%BE%9101.png" title="SD卡分区编辑01"></p>
+<p><img src="/2021/10/12/zi-dong-jia-shi-xiao-che/SD%E5%8D%A1%E5%88%86%E5%8C%BA%E7%BC%96%E8%BE%9102.png" title="SD卡分区编辑02"></p>
+<p>之后右键SD卡盘，快速分区，注意选择自定义1个分区、使用FAT32，同时去掉对其扇区整数倍的勾，大小我是选的默认大小。</p>
+<p><img src="/2021/10/12/zi-dong-jia-shi-xiao-che/%E8%BD%BD%E5%85%A5%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%90%9102.png" title="载入系统镜向02"></p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<!-- flag of hidden posts -->
                 
             </div>
             <hr/>
@@ -505,7 +562,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://jack-ni.com/1985/10/26/hello-world/">http://jack-ni.com/1985/10/26/hello-world/</a>
+                    <a href="http://jack-ni.com/2021/10/12/zi-dong-jia-shi-xiao-che/">http://jack-ni.com/2021/10/12/zi-dong-jia-shi-xiao-che/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -542,7 +599,19 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                                    <span class="chip bg-color">树莓派</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6/">
+                                    <span class="chip bg-color">自动驾驶</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -712,39 +781,57 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/1985/10/26/hello-world/">
+                <a href="/2021/10/12/shu-mei-pai-3b-xi-tong-chong-zhuang-bing-an-zhuang-tensorflow-keras/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="树莓派3B系统重装并安装Tensorflow + Keras">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">树莓派3B系统重装并安装Tensorflow + Keras</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            本科毕设：基于树莓派和深度学习的自动驾驶小车
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>1985-10-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jack Ni
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%93%8D%E4%BD%9C/" class="post-category">
+                                    操作
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">
+                        <span class="chip bg-color">树莓派</span>
+                    </a>
+                    
+                    <a href="/tags/Tensorflow/">
+                        <span class="chip bg-color">Tensorflow</span>
+                    </a>
+                    
+                    <a href="/tags/Keras/">
+                        <span class="chip bg-color">Keras</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -752,37 +839,52 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/1985/10/26/hello-world/">
+                <a href="/2021/10/12/shou-ye-an-niu-gong-neng-tan-suo-ji-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="首页按钮功能探索记录">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">首页按钮功能探索记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            对首页按钮编辑的探索
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>1985-10-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jack Ni
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%8E%A2%E7%B4%A2/" class="post-category">
+                                    探索
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%8C%89%E9%92%AE/">
+                        <span class="chip bg-color">按钮</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%8E%A2%E7%B4%A2/">
+                        <span class="chip bg-color">探索</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

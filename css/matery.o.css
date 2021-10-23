@@ -1955,11 +1955,11 @@ p.search-result-summary{
 }
 
 .img-shadow {
-    box-shadow: 0 5px 25px 0 rgba(237, 237, 237, .7), 0 10px 30px -11px rgba(237, 237, 237, .5)
+    box-shadow: 0 5px 25px 0 rgba(0, 0, 0, .2), 0 10px 30px -11px rgba(0, 0, 0, .6)
 }
 
 .img-margin {
-    margin: 25px auto 5px auto;
+    margin: 25px auto 10px auto;
 }
 
 .caption {
